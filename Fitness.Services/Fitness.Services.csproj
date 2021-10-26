@@ -55,10 +55,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkoutService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fitness.Data\Fitness.Data.csproj">
+      <Project>{c501b1f5-b74b-447b-acac-a2191a6ca5f3}</Project>
+      <Name>Fitness.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fitness.Models\Fitness.Models.csproj">
+      <Project>{71b7ffb5-837a-4b28-9c3c-f60cfadaca56}</Project>
+      <Name>Fitness.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -32,7 +32,7 @@ namespace Fitness.Data
             return new ApplicationDbContext();
         }
 
-        public DbSet<Workout> Notes { get; set; }
+        public DbSet<Workout> Workouts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
