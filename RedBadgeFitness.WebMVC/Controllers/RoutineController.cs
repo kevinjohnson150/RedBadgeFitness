@@ -1,5 +1,5 @@
 ﻿using Fitness.Data;
-using Fitness.Models;
+using Fitness.Models.RoutineModels;
 using Fitness.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -12,17 +12,16 @@ using System.Web.Mvc;
 
 namespace RedBadgeFitness.WebMVC.Controllers
 {
-    [Authorize]
-    public class WorkoutController : Controller
+    public class RoutineController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
 
-        // GET: Workout
+        // GET: Routine
         public ActionResult Index()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new WorkoutService(userId);
-            var model = service.GetWorkouts();
+            var service = new RoutineService(userId);
+            var model = service.GetRoutines();
 
             return View(model);
         }
@@ -35,7 +34,7 @@ namespace RedBadgeFitness.WebMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(WorkoutCreate model)
+        public ActionResult Create(RoutineCreate model)
         {
             if (!ModelState.IsValid)
             {
@@ -43,10 +42,10 @@ namespace RedBadgeFitness.WebMVC.Controllers
             }
 
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new WorkoutService(userId);
-            service.CreateWorkout(model);
+            var service = new RoutineService(userId);
+            service.CreateRoutine(model);
 
-            if (service.CreateWorkout(model))
+            if (service.CreateRoutine(model))
             {
                 TempData["SaveResult"] = "Your workout was created.";
                 return RedirectToAction("Index");
@@ -57,78 +56,78 @@ namespace RedBadgeFitness.WebMVC.Controllers
 
 
         // GET: Delete
-        //Workout/Delete/{id}
+        //Routine/Delete/{id}
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Workout workout = _db.Workouts.Find(id);
-            if (workout == null)
+            Routine routine = _db.Routines.Find(id);
+            if (routine == null)
             {
                 return HttpNotFound();
             }
-            return View(workout);
+            return View(routine);
         }
 
         // POST: Delete
-        // Wokrout/Delete{id}
+        // Routine/Delete{id}
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            Workout workout = _db.Workouts.Find(id);
-            _db.Workouts.Remove(workout);
+            Routine routine = _db.Routines.Find(id);
+            _db.Routines.Remove(routine);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         // GET: Edit
-        // Workout/Edit/{id}
+        // Routine/Edit/{id}
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Workout workout = _db.Workouts.Find(id);
-            if (workout == null)
+            Routine routine = _db.Routines.Find(id);
+            if (routine == null)
             {
                 return HttpNotFound();
             }
-            return View(workout);
+            return View(routine);
         }
 
-        // POST: Edit// Workout/Edit/{id}
+        // POST: Edit// Routine/Edit/{id}
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Workout workout)
+        public ActionResult Edit(Routine routine)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                _db.Entry(workout).State = EntityState.Modified;
+                _db.Entry(routine).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(workout);
+            return View(routine);
         }
 
         // GET: Details
-        // Workout/Details/{id}
+        // Routine/Details/{id}
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Workout workout = _db.Workouts.Find(id);
+            Routine routine = _db.Routines.Find(id);
 
-            if (workout == null)
+            if (routine == null)
             {
                 return HttpNotFound();
             }
-            return View(workout);
+            return View(routine);
         }
     }
 }

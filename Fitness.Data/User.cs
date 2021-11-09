@@ -8,24 +8,22 @@ using static Fitness.Data.Enumerations.FitnessEnumerations;
 
 namespace Fitness.Data
 {
-    public class Workout
+    public class User
     {
         [Key]
-        public int WorkoutId { get; set; }
+        public Guid UserId { get; set; }
 
         [Required]
-        public Guid OwnerId { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public string Title { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Required]
-        public string Reps { get; set; }
+        public string Email { get; set; }
 
         [Required]
-        public string Sets { get; set; }
+        public Style Style { get; set; }
 
-        [Required]
-        public Intensity Intensity { get; set; }
     }
 }

@@ -3,23 +3,10 @@ namespace Fitness.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigration : DbMigration
+    public partial class New : DbMigration
     {
         public override void Up()
         {
-            CreateTable(
-                "dbo.Workout",
-                c => new
-                    {
-                        UserId = c.Guid(nullable: false),
-                        FirstName = c.String(),
-                        LastName = c.String(),
-                        FullName = c.String(nullable: false),
-                        Phone = c.String(nullable: false),
-                        Email = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.UserId);
-            
             CreateTable(
                 "dbo.IdentityRole",
                 c => new
@@ -43,6 +30,32 @@ namespace Fitness.Data.Migrations
                 .ForeignKey("dbo.ApplicationUser", t => t.ApplicationUser_Id)
                 .Index(t => t.IdentityRole_Id)
                 .Index(t => t.ApplicationUser_Id);
+            
+            CreateTable(
+                "dbo.Routine",
+                c => new
+                    {
+                        RoutineId = c.Guid(nullable: false),
+                        Name = c.String(nullable: false),
+                        Category = c.Int(nullable: false),
+                        Style = c.Int(nullable: false),
+                        Intensity = c.Int(nullable: false),
+                        WorkoutId = c.Guid(nullable: false),
+                        UserID = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.RoutineId);
+            
+            CreateTable(
+                "dbo.User",
+                c => new
+                    {
+                        UserId = c.Guid(nullable: false),
+                        Name = c.String(nullable: false),
+                        PhoneNumber = c.String(nullable: false),
+                        Email = c.String(nullable: false),
+                        Style = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.UserId);
             
             CreateTable(
                 "dbo.ApplicationUser",
@@ -90,6 +103,19 @@ namespace Fitness.Data.Migrations
                 .ForeignKey("dbo.ApplicationUser", t => t.ApplicationUser_Id)
                 .Index(t => t.ApplicationUser_Id);
             
+            CreateTable(
+                "dbo.Workout",
+                c => new
+                    {
+                        WorkoutId = c.Int(nullable: false, identity: true),
+                        OwnerId = c.Guid(nullable: false),
+                        Title = c.String(nullable: false),
+                        Reps = c.String(nullable: false),
+                        Sets = c.String(nullable: false),
+                        Intensity = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.WorkoutId);
+            
         }
         
         public override void Down()
@@ -102,12 +128,14 @@ namespace Fitness.Data.Migrations
             DropIndex("dbo.IdentityUserClaim", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.IdentityUserRole", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.IdentityUserRole", new[] { "IdentityRole_Id" });
+            DropTable("dbo.Workout");
             DropTable("dbo.IdentityUserLogin");
             DropTable("dbo.IdentityUserClaim");
             DropTable("dbo.ApplicationUser");
+            DropTable("dbo.User");
+            DropTable("dbo.Routine");
             DropTable("dbo.IdentityUserRole");
             DropTable("dbo.IdentityRole");
-            DropTable("dbo.Workout");
         }
     }
 }

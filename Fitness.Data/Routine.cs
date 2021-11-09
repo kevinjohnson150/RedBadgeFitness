@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,24 +9,25 @@ using static Fitness.Data.Enumerations.FitnessEnumerations;
 
 namespace Fitness.Data
 {
-    public class Workout
+    public class Routine
     {
         [Key]
-        public int WorkoutId { get; set; }
+        public Guid RoutineId { get; set; }
 
         [Required]
-        public Guid OwnerId { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public string Title { get; set; }
+        public Category Category { get; set; }
 
-        [Required]
-        public string Reps { get; set; }
+        public Style Style { get; set; }
 
-        [Required]
-        public string Sets { get; set; }
-
-        [Required]
         public Intensity Intensity { get; set; }
+
+       
+        public Guid WorkoutId { get; set; }
+
+        
+        public Guid UserID { get; set; }
     }
 }

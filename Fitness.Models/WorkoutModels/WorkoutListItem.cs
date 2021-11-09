@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Fitness.Data.Enumerations.FitnessEnumerations;
 
 namespace Fitness.Models
 {
@@ -16,12 +17,6 @@ namespace Fitness.Models
 
         public string Sets { get; set; }
 
-        public enum Intensity
-        {
-            Easy,
-            Medium,
-            Hard,
-            Pro
-        }
+        public Intensity Intensity { get; set; }
     }
 }

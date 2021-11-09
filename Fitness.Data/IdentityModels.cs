@@ -33,6 +33,8 @@ namespace Fitness.Data
         }
 
         public DbSet<Workout> Workouts { get; set; }
+        public DbSet<Routine> Routines { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
